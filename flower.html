@@ -335,6 +335,14 @@
       });
     };
 
+     document.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play().then(() => fadeInMusic());
+    } else {
+      fadeInMusic();
+    }
+  }, { once: true });
+    
     // Save position while playing
     audio.ontimeupdate = () => {
       localStorage.setItem("audio-time", audio.currentTime);
@@ -382,3 +390,4 @@
 
 <!-- Import Javascript -->
 <script src="js/main.js"></script>
+
