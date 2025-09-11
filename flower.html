@@ -336,12 +336,13 @@
     };
 
      document.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.play().then(() => fadeInMusic());
-    } else {
-      fadeInMusic();
-    }
-  }, { once: true });
+  audio.muted = false;   // 🔑 enable sound after interaction
+  if (audio.paused) {
+    audio.play().then(() => fadeInMusic());
+  } else {
+    fadeInMusic();
+  }
+}, { once: true });
     
     // Save position while playing
     audio.ontimeupdate = () => {
@@ -390,4 +391,5 @@
 
 <!-- Import Javascript -->
 <script src="js/main.js"></script>
+
 
