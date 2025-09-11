@@ -317,15 +317,36 @@
   <!-- Title -->
   <h1 class="title"><span id="title"></span></h1>
 
-  <audio id="bg-music" autoplay loop>
+  <audio id="bg-music" loop>
     <source src="love.mp3" type="audio/mp3">
   </audio>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const audio = document.getElementById("bg-music");
+
+    // Force play as soon as page loads after a click navigation
+    audio.play().catch(err => {
+      console.log("Autoplay blocked:", err);
+    });
+
+    // As fallback: start if user taps anywhere
+    function enableAudio() {
+      audio.play();
+      document.removeEventListener("click", enableAudio);
+      document.removeEventListener("touchstart", enableAudio);
+    }
+    document.addEventListener("click", enableAudio);
+    document.addEventListener("touchstart", enableAudio);
+  });
+</script>
 </body>
 
 </html>
 
 <!-- Import Javascript -->
 <script src="js/main.js"></script>
+
 
 
 
