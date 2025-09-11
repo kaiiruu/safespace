@@ -320,76 +320,12 @@
   <audio id="bg-music" autoplay loop>
     <source src="love.mp3" type="audio/mp3">
   </audio>
-  
-  <script>
-    const audio = document.getElementById("bg-music");
-
-    window.onload = () => {
-      let savedTime = localStorage.getItem("audio-time");
-      if (savedTime) {
-        audio.currentTime = savedTime;
-      }
-      audio.volume = 0;   // start silent
-      audio.play().then(() => {
-        fadeInMusic();    // fade in after play starts
-      });
-    };
-
-     document.addEventListener("click", () => {
-  audio.muted = false;   // 🔑 enable sound after interaction
-  if (audio.paused) {
-    audio.play().then(() => fadeInMusic());
-  } else {
-    fadeInMusic();
-  }
-}, { once: true });
-    
-    // Save position while playing
-    audio.ontimeupdate = () => {
-      localStorage.setItem("audio-time", audio.currentTime);
-    };
-
-    // Fade in
-    function fadeInMusic() {
-      audio.muted = false;
-      let vol = 0;
-      const fade = setInterval(() => {
-        if (vol < 1) {
-          vol += 0.01;         // speed of fade-in
-          audio.volume = vol;
-        } else {
-          clearInterval(fade);
-        }
-      }, 200); // every 200ms
-    }
-
-    // Fade out (call this before navigating away)
-    function fadeOutMusic(nextPage) {
-      let vol = audio.volume;
-      const fade = setInterval(() => {
-        if (vol > 0.05) {
-          vol -= 0.05;        // speed of fade-out
-          audio.volume = vol;
-        } else {
-          clearInterval(fade);
-          audio.volume = 0;
-          localStorage.setItem("audio-time", audio.currentTime);
-          if (nextPage) window.location.href = nextPage;
-        }
-      }, 200);
-      return false;
-    }
-
-    // Example: fade out if user closes page or refreshes
-    window.addEventListener("beforeunload", (e) => {
-      fadeOutMusic(); 
-    });
-  </script>
 </body>
 
 </html>
 
 <!-- Import Javascript -->
 <script src="js/main.js"></script>
+
 
 
