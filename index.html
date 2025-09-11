@@ -17,6 +17,30 @@
   <!-- Title -->
   <h1 class="title"></h1>
 
+  <audio id="bg-music" loop>
+    <source src="love.mp3" type="audio/mp3">
+  </audio>
+  
+  <script>
+  const btn = document.getElementById("go-btn");
+  const audio = document.getElementById("bg-music");
+
+  btn.addEventListener("click", function (e) {
+    e.preventDefault(); // stop immediate navigation
+
+    audio.play().then(() => {
+      // wait a little to make sure audio is unlocked, then navigate
+      setTimeout(() => {
+        window.location.href = "flower.html";
+      }, 200);
+    }).catch(err => {
+      console.log("Audio blocked until user taps:", err);
+      // still navigate even if audio is blocked
+      window.location.href = "flower.html";
+    });
+  });
+</script>
+
   <!-- Button -->
   <div style="position: absolute; top: 60vh; width: 100%; display: flex; justify-content: center;">
     <a href="flower.html" class="btn">
@@ -31,10 +55,7 @@
   </div>
 
   <script src="js/index.js"></script>
-
-  <audio id="bg-music" loop>
-    <source src="love.mp3" type="audio/mp3">
-  </audio>
 </body>
 
 </html>
+
